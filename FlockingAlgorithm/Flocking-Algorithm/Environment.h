@@ -1,72 +1,65 @@
 #ifndef ENVIRONMENT
 #define ENVIRONMENT
 
-#include "Point.h"
-#include "Vector.h"
-using namespace mathtool;
-#include <iostream>
-#include <string>
-#include <vector>
-using namespace std;
+#include "Point.h" // Include the header file for the Point class
+#include "Vector.h" // Include the header file for the Vector3d class
+using namespace mathtool; // Use the mathtool namespace for Point and Vector3d
 
-class Cell 
-{
+#include <iostream> // Include input/output stream functionality
+#include <string> // Include string handling functionality
+#include <vector> // Include vector container functionality
+using namespace std; // Use the standard namespace
+
+// Class representing a cell in the environment grid
+class Cell {
 public:
-  Cell();
-  void Init(int _i, int _j, Point _center, double _dx, double _dy, bool _blocked);
-  void Draw();
-  Vector3d GetCenter() 
-  { 
-	  return Vector3d(center.GetX(),center.GetY(),0); 
-  
-  }
-  bool IsCollision(Vector3d pNew, double radius);
+    Cell(); // Constructor
+    void Init(int _i, int _j, Point _center, double _dx, double _dy, bool _blocked); // Method to initialize cell properties
+    void Draw(); // Method to draw the cell
+    Vector3d GetCenter() { // Method to get the center of the cell
+        return Vector3d(center.GetX(), center.GetY(), 0); // Return the center point as a Vector3d
+    }
+    bool IsCollision(Vector3d pNew, double radius); // Method to check collision with a point
+    void EdgeCheck(Vector3d pNew, double radius, bool& flipX, bool& flipY, double& txmin, double& txmax, double& tymin, double& tymax, int& xcondition, int& ycondition); // Method to check collision with cell edges
 
-  //this function will set maximums for the cell and return values
-  //like whether or not the x/y is in collision, the
-  //min/max values, and which condition is violated
-  void EdgeCheck(Vector3d pNew, double radius, bool& flipX, bool& flipY, double& txmin, double& txmax, double& tymin, double& tymax, int& xcondition, int& ycondition);
-
-  int xi;
-  int xj;
-  double dx;
-  double dy;
-  Point center;
-  Point minPt;
-  Point maxPt;
-  bool blocked;
-  bool isCol;
+    int xi; // Cell index in x-direction
+    int xj; // Cell index in y-direction
+    double dx; // Cell width
+    double dy; // Cell height
+    Point center; // Center point of the cell
+    Point minPt; // Minimum point of the cell
+    Point maxPt; // Maximum point of the cell
+    bool blocked; // Flag indicating if the cell is blocked
+    bool isCol; // Flag indicating if there is a collision with the cell
 };
 
-class Environment 
-{
+// Class representing the environment grid
+class Environment {
 public:
-  Environment();
-  Environment(string _inputFile, double _xmin, double _xmax, double _ymin, double _ymax );
-  void Draw();
+    Environment(); // Default constructor
+    Environment(string _inputFile, double _xmin, double _xmax, double _ymin, double _ymax); // Constructor with parameters
+    void Draw(); // Method to draw the environment
 
-  pair<int,int> GetCellIndices(Vector3d p);
-  pair<int,int> GetClosestBlocked(pair<int,int> curCellInd, Vector3d pos, double radius);
-  Vector3d GetWrappedPosition(Vector3d p, bool& updated);
-  Vector3d GetValidPosition(Vector3d p, Vector3d oldP, double radius, Vector3d& vel, bool& updated);
-  void MakeEmptyEnv();
+    pair<int, int> GetCellIndices(Vector3d p); // Method to get the cell indices for a given point
+    pair<int, int> GetClosestBlocked(pair<int, int> curCellInd, Vector3d pos, double radius); // Method to get the closest blocked cell
+    Vector3d GetWrappedPosition(Vector3d p, bool& updated); // Method to get wrapped position if the point is outside the environment
+    Vector3d GetValidPosition(Vector3d p, Vector3d oldP, double radius, Vector3d& vel, bool& updated); // Method to get a valid position for a point considering collisions and wrapping
+    void MakeEmptyEnv(); // Method to make the environment empty
 
-  void AddAttractionPoint(double tx, double ty);
+    void AddAttractionPoint(double tx, double ty); // Method to add an attraction point to the environment
 
-  vector<Vector3d>& GetAttractionPoints() 
-  { 
-	  return attractionPts; 
-  }
+    vector<Vector3d>& GetAttractionPoints() { // Method to get attraction points
+        return attractionPts; // Return the vector of attraction points
+    }
 
-  Cell** cells;
+    Cell** cells; // 2D array representing the grid of cells
 
-  double xmin, xmax, ymin, ymax; 
-  double dx, dy;
-  int rows, columns;
-  string inputFile;
+    double xmin, xmax, ymin, ymax; // Minimum and maximum coordinates of the environment
+    double dx, dy; // Cell width and height
+    int rows, columns; // Number of rows and columns in the grid
+    string inputFile; // File containing environment data
 
-  vector<Vector3d> attractionPts;
-
+    vector<Vector3d> attractionPts; // Vector storing attraction points in the environment
 };
 
 #endif

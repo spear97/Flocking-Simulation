@@ -182,6 +182,40 @@ namespace mathtool {
             return m_v[i];
         }
 
+        /////////////Getters/////////////
+
+        // Get the X-Value of the Vector
+        double GetX() {
+            return m_v[0];
+        }
+
+        // Get the Y-Value of the Vector
+        double GetY() {
+            return m_v[1];
+        }
+
+        // Get the Z-Value of the Vector
+        double GetZ() {
+            return m_v[2];
+        }
+
+        /////////////Setters/////////////
+
+        // Set the X-Value of the Vector
+        void SetX(double _d) {
+            m_v[0] = _d;
+        }
+
+        // Set the Y-Value of the Vector
+        void SetY(double _d) {
+            m_v[1] = _d;
+        }
+
+        // Set the Z-Value of the Vector
+        void SetZ(double _d) {
+            m_v[2] = _d;
+        }
+
     private:
         double m_v[3]; // Array to store vector components
     };
