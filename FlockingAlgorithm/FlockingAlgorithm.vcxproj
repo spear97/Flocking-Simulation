@@ -129,6 +129,22 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Agent.cpp" />
+    <ClCompile Include="Basic.cpp" />
+    <ClCompile Include="Environment.cpp" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="Simulator.cpp" />
+    <ClCompile Include="Simulator.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Agent.h" />
+    <ClInclude Include="Basic.h" />
+    <ClInclude Include="Color.h" />
+    <ClInclude Include="Environment.h" />
+    <ClInclude Include="Point.h" />
+    <ClInclude Include="Vector.h" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
     <Import Project="packages\nupengl.core.redist.0.1.0.1\build\native\nupengl.core.redist.targets" Condition="Exists('packages\nupengl.core.redist.0.1.0.1\build\native\nupengl.core.redist.targets')" />
