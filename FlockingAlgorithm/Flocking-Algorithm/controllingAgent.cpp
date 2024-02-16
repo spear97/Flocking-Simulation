@@ -131,276 +131,275 @@ void menu(int num)
 	}
 }
 
-
 // Creates a menu for user interaction
 void createMenu()
 {
-	// Create the menu and attach it to the right mouse button
+	// Create a new menu and attach it to the right mouse button
 	menu_id = glutCreateMenu(menu);
-	glutAddMenuEntry("Clear PointXYONLYs", -1);
-	glutAddMenuEntry("Quit", 0);
-	glutAddMenuEntry("Add Indiv.", 1);
-	glutAddMenuEntry("Add Group", 2);
-	glutAddMenuEntry("Add Attraction Point", 3);
-	glutAddMenuEntry("Toggle Adversary", 4);
+
+	// Add menu entries for different options
+	glutAddMenuEntry("Clear PointXYONLYs", -1);          // Option to clear certain points
+	glutAddMenuEntry("Quit", 0);                         // Option to quit the program
+	glutAddMenuEntry("Add Indiv.", 1);                   // Option to add individual elements
+	glutAddMenuEntry("Add Group", 2);                    // Option to add group elements
+	glutAddMenuEntry("Add Attraction Point", 3);         // Option to add an attraction point
+	glutAddMenuEntry("Toggle Adversary", 4);             // Option to toggle the adversary
+
+	// Attach the menu to the right mouse button
 	glutAttachMenu(GLUT_RIGHT_BUTTON);
-}
+} // End of createMenu function
 
-int homeX, homeY;
-bool mousePressed=false;
-int timeSincePress=0;
-int changeY=0;
-int changeX=0;
-double alpha = 0.5;
 
-void customDraw();
+int homeX, homeY;            // Stores the initial mouse position
+bool mousePressed = false;   // Indicates whether the mouse button is pressed
+int timeSincePress = 0;      // Tracks the time since the mouse button was pressed
+int changeY = 0;             // Stores the change in mouse y-coordinate
+int changeX = 0;             // Stores the change in mouse x-coordinate
+double alpha = 0.5;          // Alpha value used for some calculations
 
-void update() 
+void customDraw();  // Function prototype for the custom drawing function
+
+// Updates the simulation and display
+void update()
 {
+	// Update the simulation if it's running
 	if (isSimulating)
 	{
-		gSim.Update();
-	} 
-  //cout << "update mousePressed=" << mousePressed << endl;
-	if( mousePressed ) 
-	{
-		speedTheta = changeY*0.2;
-		timeSincePress += 1;
+		gSim.Update(); // Update the simulation
 	}
 
-	if( isFollowing ) 
+	// Adjust speedTheta if the mouse is pressed
+	if (mousePressed)
 	{
-    followPt = gSim.GetPointToFollow();
-    cout << "update::isFollowing " << isFollowing << " followPt: " << followPt << endl;
-    setFollowCamera();
+		speedTheta = changeY * 0.2; // Adjust speedTheta based on mouse movement
+		timeSincePress += 1; // Increment time since mouse press
 	}
 
-	customDraw();
-}
+	// Update the camera follow point if following is enabled
+	if (isFollowing)
+	{
+		followPt = gSim.GetPointToFollow(); // Update camera follow point
+		cout << "update::isFollowing " << isFollowing << " followPt: " << followPt << endl; // Print follow status and point
+		setFollowCamera(); // Update camera to follow the point
+	}
 
-void customDraw() 
+	// Call the custom draw function to update the display
+	customDraw(); // Update the display
+} // End of update function
+
+// Draws the environment and simulation
+void customDraw()
 {
-  if(0 && (++numDraws % 100 == 0)) 
-  {
-    cout << " customDraw numDraws = " << numDraws << " drawMode: " << drawMode << endl;
-  }
+	// If condition is false and every 100 draws, print debug information
+	if (0 && (++numDraws % 100 == 0))
+	{
+		cout << " customDraw numDraws = " << numDraws << " drawMode: " << drawMode << endl; // Print debug information including draw mode and number of draws
+	}
 
+	glClearColor(bColor.r, bColor.g, bColor.b, 0.0); // Set display-window color to white
+	glClear(GL_COLOR_BUFFER_BIT); // Clear the color buffer to refresh the display
 
-  glClearColor(bColor.r, bColor.g, bColor.b, 0.0); //Set display-window color to white.
-  glClear(GL_COLOR_BUFFER_BIT);     //Clear display window.
+	gEnv->Draw(); // Draw the environment using its Draw method
+	gSim.Draw(); // Draw the simulation using its Draw method
 
-  gEnv->Draw();
-  gSim.Draw();
+	glFlush(); // Process all OpenGL routines as quickly as possible to update the display
+} // End of customDraw function
 
-  glFlush();                        //Process all OpenGL routines as quickly as possible.
-}
-
+// Handles mouse button events
 void mousebutton(int button, int state, int x, int y)
 {
-  if (button == GLUT_LEFT_BUTTON && state == GLUT_DOWN) 
-  {
-    if( !mousePressed ) 
+	// If left button is pressed down
+	if (button == GLUT_LEFT_BUTTON && state == GLUT_DOWN)
 	{
-      homeX = x;
-      homeY = y;
-      timeSincePress = 0;
-    }
-
-    double tx = -windowW/2 + (1.0*x/windowW)*(windowW);
-    double ty = -windowH/2 + ((1.0*windowH-y)/windowH)*(windowH);
-
-	if (addIndividual)
-	{
-		gSim.AddMember(-1, tx, ty, addAdversary);
-	}
-     
-	else if (addGroup)
-	{
-		for (int i = 0; i < 5; i++)
+		// If mouse is not already pressed
+		if (!mousePressed)
 		{
-			gSim.AddMember(-1, tx, ty, addAdversary);
+			homeX = x; // Store initial x-coordinate of mouse
+			homeY = y; // Store initial y-coordinate of mouse
+			timeSincePress = 0; // Reset time since press counter
 		}
+
+		// Convert mouse coordinates to world coordinates
+		double tx = -windowW / 2 + (1.0 * x / windowW) * (windowW);
+		double ty = -windowH / 2 + ((1.0 * windowH - y) / windowH) * (windowH);
+
+		// If adding individual members
+		if (addIndividual)
+		{
+			gSim.AddMember(-1, tx, ty, addAdversary); // Add a member at the mouse position
+		}
+		// If adding a group of members
+		else if (addGroup)
+		{
+			for (int i = 0; i < 5; i++)
+			{
+				gSim.AddMember(-1, tx, ty, addAdversary); // Add multiple members at the mouse position
+			}
+		}
+		// If adding an attraction point
+		else if (addAttractionPt)
+		{
+			gEnv->AddAttractionPoint(tx, ty); // Add an attraction point at the mouse position in the environment
+		}
+		mousePressed = true; // Set mousePressed flag to true
+		glutPostRedisplay(); // Request a redraw of the window
 	}
-     
-    else if( addAttractionPt ) 
+
+	// If left button is released
+	if (button == GLUT_LEFT_BUTTON && state == GLUT_UP)
 	{
-      gEnv->AddAttractionPoint(tx,ty);
-    }
-    mousePressed = true;
-    glutPostRedisplay();
-  }
+		cout << " release button " << endl; // Print message indicating left button release
+		theta = theta + timeSincePress * speedTheta; // Update theta based on time since press and speedTheta
+		speedTheta = 1; // Reset speedTheta
+		changeY = 0; // Reset changeY
+		mousePressed = false; // Set mousePressed flag to false
+		timeSincePress = 0; // Reset time since press
+	}
 
-  if (button == GLUT_LEFT_BUTTON && state == GLUT_UP) 
-  {
-    cout << " release button " << endl;
-    theta = theta+timeSincePress*speedTheta;
-    speedTheta = 1;
-    changeY = 0;
-    //alpha = 1;
-    mousePressed = false;
-    timeSincePress = 0;
-  }
-
-  if( button == GLUT_MIDDLE_BUTTON && state == GLUT_DOWN ) 
-  {
-    cout << "glut_middle_button == down" << endl;
-  }
+	// If middle button is pressed down
+	if (button == GLUT_MIDDLE_BUTTON && state == GLUT_DOWN)
+	{
+		cout << "glut_middle_button == down" << endl; // Print message indicating middle button press
+	}
 }
 
-void setBackgroundColor(int colorIndex, double colorDif, double colorRange) 
+// Sets the background color based on a given color index, color difference, and color range
+void setBackgroundColor(int colorIndex, double colorDif, double colorRange)
 {
+	// Print information about the background color setting
 	cout << "setBackgroundColor colorIndex = " << colorIndex;
 	cout << " colorDif = " << colorDif;
 	cout << " colorRange = " << colorRange << endl;
 
+	// Ensure that the color index does not exceed the available colors
 	if (colorIndex >= colors.size())
 	{
-		colorIndex = colors.size() - 1;
+		colorIndex = colors.size() - 1; // Set color index to the last available color index
 	}
 
-	MyColor& c_i = colors[colorIndex];
-
+	// Get references to the current color and the next color in the color list
+	MyColor& c_i = colors[colorIndex]; // Current color
 	int j = colorIndex + 1;
 	if (j >= colors.size())
 	{
 		j = colors.size() - 1;
 	}
+	MyColor& c_j = colors[j]; // Next color
 
-	MyColor& c_j = colors[j];
+	// Print information about the current and next colors
+	c_i.Print(); // Print details of current color
+	c_j.Print(); // Print details of next color
 
-	c_i.Print();
-	c_j.Print();
-	double s = colorDif / colorRange;	
-	double tr = (1-s)*c_i.r + s*c_j.r;
-	double tg = (1-s)*c_i.g + s*c_j.g;
-	double tb = (1-s)*c_i.b + s*c_j.b;
+	// Calculate the interpolation factor based on the color difference and color range
+	double s = colorDif / colorRange; // Interpolation factor
 
-	bColor.r = tr;	
-	bColor.g = tg;	
-	bColor.b = tb;	
-	
+	// Interpolate the RGB components of the background color between the current and next colors
+	double tr = (1 - s) * c_i.r + s * c_j.r; // Interpolated red component
+	double tg = (1 - s) * c_i.g + s * c_j.g; // Interpolated green component
+	double tb = (1 - s) * c_i.b + s * c_j.b; // Interpolated blue component
+
+	// Set the background color based on the interpolated RGB components
+	bColor.r = tr; // Set red component of background color
+	bColor.g = tg; // Set green component of background color
+	bColor.b = tb; // Set blue component of background color
+
+	// Print the newly set color
 	cout << "Setting color (" << tr << "," << tg << "," << tb << ")" << endl;
-	
 }
-/*
-void mouseMove(int mx, int my) {
-	cout << "mouseMove mx: " << mx << " my: " << my << endl;
-	//int changeY = my - homeY;
-	changeY = my - homeY;
-	//speedTheta *=1.05;
-	//theta += changeY*speedTheta;
-	cout << "theta " << theta << " speedTheta " << speedTheta << " changeY " << changeY << endl;
-	changeX = mx - homeX;
-	alpha = 0.5+ (1.0*changeX)/windowW;
-	double ratioInScreen = double(mx)/windowW;
-	if(ratioInScreen<0) ratioInScreen=0; //bound the allowable values
-	if(ratioInScreen>1) ratioInScreen=1;
-	int colorIndex = int(ratioInScreen*colors.size());
-	double colorRange = 1.0/colors.size();
-	double colorDif = ((ratioInScreen*colors.size())-colorIndex)/colors.size();
-	cout << "alpha " << alpha << " mx " << mx << " homeX " << homeX << endl;
-	cout <<" ratioInScreen " << ratioInScreen << " colorIndex " << colorIndex << " colorRange " << colorRange << " colorDif " << colorDif << endl;
- 	setBackgroundColor(colorIndex, colorDif, colorRange);	
 
-}
-*/
-
+// Handles keyboard input events
 void keyboard(unsigned char key, int x, int y)
 {
-  switch (key)
-  {
-  case 'q':
-	exit(0);
-	break;
-  case 27:             // ESCAPE key
-	exit(0);
-	break;
-  case ' ':
-	isSimulating = !isSimulating; 
-	break;
-  case 'f':
-  	isSimulating = true;
-	update();
-	isSimulating = false;
-  	break;
-  case 'c':
-  	isFollowing = !isFollowing; 
-	if (!isFollowing)
+	// Switch statement to handle different key presses
+	switch (key)
 	{
-		init();
+	case 'q':
+	case 27: // ESCAPE key
+		exit(0); // Exit the program
+		break;
+	case ' ': // Space key
+		isSimulating = !isSimulating; // Toggle simulation state
+		break;
+	case 'f': // 'f' key
+		isSimulating = true; // Set simulation state to true
+		update(); // Update simulation
+		isSimulating = false; // Reset simulation state
+		break;
+	case 'c': // 'c' key
+		isFollowing = !isFollowing; // Toggle following mode
+		if (!isFollowing)
+		{
+			init(); // Initialize following mode
+		}
+		break;
+	case 'e': // 'e' key
+		gEnv->MakeEmptyEnv(); // Make the environment empty
+		break;
+	case 'a': // 'a' key
+		gSim.ToggleControlledAdversary(); // Toggle controlled adversary
+		break;
+	case 'b': // 'b' key
+		gSim.ToggleControlledAgent(); // Toggle controlled agent
+		break;
+	case '1': // '1' key
+		drawMode = 1; // Set draw mode to 1
+		break;
+	case '2': // '2' key
+		drawMode = 2; // Set draw mode to 2
+		break;
+	case '3': // '3' key
+		drawMode = 3; // Set draw mode to 3
+		break;
+	case 9: // Tab key
+		gSim.IncrementControllingAgent(); // Increment controlling agent
+		break;
 	}
-	break;
-  case 'e':
-  	gEnv->MakeEmptyEnv();
-  case 'a':
-  	gSim.ToggleControlledAdversary(); 
-	break;
-  case 'b':
-  	gSim.ToggleControlledAgent(); 
-	break;
-  case '1':
-	drawMode = 1; 
-	break;
-  case '2':
-	drawMode = 2; 
-	break;
-  case '3':
-	drawMode = 3; 
-	break;
-  case 9: //tab key
-  	gSim.IncrementControllingAgent(); 
-	break;
-
-  }
 }
 
-void otherKeyInput(int key, int x, int y) 
+// Handles special key input events
+void otherKeyInput(int key, int x, int y)
 {
-  switch(key) 
-  {
-    case GLUT_KEY_UP:
-      cout << "GLUT_KEY_UP" << endl;
-      gSim.SendControl("forward");
-      break;	
-    case GLUT_KEY_DOWN:
-      //do something here
-      cout << "GLUT_KEY_DOWN" << endl;
-      gSim.SendControl("back");
-      break;
-    case GLUT_KEY_LEFT:
-      //do something here
-      cout << "GLUT_KEY_LEFT" << endl;
-      gSim.SendControl("left");
-      break;
-    case GLUT_KEY_RIGHT:
-      //do something here
-      cout << "GLUT_KEY_RIGHT" << endl;
-      gSim.SendControl("right");
-      break;
-  }
-  glutPostRedisplay();
+	// Switch statement to handle different special key presses
+	switch (key)
+	{
+	case GLUT_KEY_UP:
+		cout << "GLUT_KEY_UP" << endl; // Print message for UP arrow key press
+		gSim.SendControl("forward"); // Send control command for moving forward
+		break;
+	case GLUT_KEY_DOWN:
+		// Do something for DOWN arrow key press
+		cout << "GLUT_KEY_DOWN" << endl; // Print message for DOWN arrow key press
+		gSim.SendControl("back"); // Send control command for moving backward
+		break;
+	case GLUT_KEY_LEFT:
+		// Do something for LEFT arrow key press
+		cout << "GLUT_KEY_LEFT" << endl; // Print message for LEFT arrow key press
+		gSim.SendControl("left"); // Send control command for moving left
+		break;
+	case GLUT_KEY_RIGHT:
+		// Do something for RIGHT arrow key press
+		cout << "GLUT_KEY_RIGHT" << endl; // Print message for RIGHT arrow key press
+		gSim.SendControl("right"); // Send control command for moving right
+		break;
+	}
+	glutPostRedisplay(); // Request a redraw of the window
 }
 
+// Entry point of the program
 int main(int argc, char** argv) {
-	glutInit(&argc, argv);                         //Initialize GLUT.
-	glutInitDisplayMode(GLUT_SINGLE | GLUT_RGBA);   //Set display mode.
-	//glutInitWindowPosition(50, 100);               //Set top-left display-window position.
-	glutInitWindowSize(windowW, windowH);                  //Set display-window width and height.
-	window_id = glutCreateWindow("Make Polygon");  //Create display window.
+	glutInit(&argc, argv);                                 // Initialize GLUT.
+	glutInitDisplayMode(GLUT_SINGLE | GLUT_RGBA);          // Set display mode.
+	glutInitWindowSize(windowW, windowH);                  // Set display-window width and height.
+	window_id = glutCreateWindow("Make Polygon");           // Create display window.
 
-	init();                                        //Execute initialization procedure.
-	//string fileToLoad = "ConvexConcaveInputs/obj6.txt";
-	///LoadPointXYONLYsFromFile(fileToLoad);
+	init();                                                // Execute initialization procedure.
 
-
-	createMenu();
-	//glutIdleFunc(drawPointXYONLYs);
-	glutIdleFunc(update);
-	glutDisplayFunc(customDraw);                   //Send graphics to display window.
-	glutKeyboardFunc(keyboard);
-	glutMouseFunc(mousebutton);                    //How to handle mouse press events. 
-	//glutMotionFunc(mouseMove);
-	glutSpecialFunc(otherKeyInput);
-	glutMainLoop();                                //Display everything and wait.
+	createMenu();                                          // Create menu for user interaction.
+	glutIdleFunc(update);                                  // Set update function for idle state.
+	glutDisplayFunc(customDraw);                           // Send graphics to display window.
+	glutKeyboardFunc(keyboard);                            // Handle keyboard input events.
+	glutMouseFunc(mousebutton);                            // Handle mouse button events.
+	glutSpecialFunc(otherKeyInput);                        // Handle special key input events.
+	glutMainLoop();                                        // Display everything and wait.
+	return 0;                                              // Return success status.
 }
-
