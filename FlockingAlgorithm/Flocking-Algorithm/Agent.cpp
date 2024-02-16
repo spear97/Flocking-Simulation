@@ -494,74 +494,81 @@ void drawFishFins() {
     glEnd(); // End drawing the fish fins
 }
 
-// Draw the agent
+// Draw the agent's graphical representation
 void Agent::Draw() {
     // Adjust color based on whether the agent is an adversary or not
     if (!isAdversary) {
-        BaseB -= lifespan;
-        glColor3f(BaseR, BaseG, BaseB);
+        BaseB -= lifespan; // Update base blue color over time
+        glColor3f(BaseR, BaseG, BaseB); // Set color for non-adversary agents
     }
     else {
-        AdvR -= lifespan;
-        glColor3f(AdvR, AdvG, AdvB);
+        AdvR -= lifespan; // Update adversary red color over time
+        glColor3f(AdvR, AdvG, AdvB); // Set color for adversary agents
     }
 
     // Draw the agent based on the selected draw mode
     if (drawMode == 1) {
+        // Draw fish-like body with tail and fins
         glPushMatrix();
         glTranslatef(pos.GetX(), pos.GetY(), 0);
-        glRotated(radToDeg(ori), 0, 0, 1);
-        drawBodyFish(radius, radius / 2);
-        glTranslatef(0.0, -1.0, 0.0);
+        glRotated(radToDeg(ori), 0, 0, 1); // Rotate based on orientation
+        drawBodyFish(radius, radius / 2); // Draw body
+        glTranslatef(0.0, -1.0, 0.0); // Move to tail position
         glColor3ub(FinR, FinG, FinB);
-        drawFishTail();
-        glTranslatef(-11.0, 2.0, 0.0);
+        drawFishTail(); // Draw tail
+        glTranslatef(-11.0, 2.0, 0.0); // Move to fin position
         glColor3ub(FinR, FinG, FinB);
-        drawFishFins();
+        drawFishFins(); // Draw fins
         glPopMatrix();
     }
     else if (drawMode == 2) {
+        // Draw triangular representation with status indicator
         glPushMatrix();
         glTranslatef(pos.GetX(), pos.GetY(), 0);
-        glRotated(radToDeg(ori), 0, 0, 1);
-        drawTriangle(2 * radius, isControlled);
-        drawTriangleStatus(2 * radius, 1.0 * status / maxStatus);
+        glRotated(radToDeg(ori), 0, 0, 1); // Rotate based on orientation
+        drawTriangle(2 * radius, isControlled); // Draw triangle
+        drawTriangleStatus(2 * radius, 1.0 * status / maxStatus); // Draw status indicator
         glPopMatrix();
     }
     else if (drawMode == 3) {
+        // Draw circular representation with status indicator
         glPushMatrix();
         glTranslatef(pos.GetX(), pos.GetY(), 0);
-        drawAgentAsCircle(radius, 10, isControlled, 1.0 * status / maxStatus);
+        drawAgentAsCircle(radius, 10, isControlled, 1.0 * status / maxStatus); // Draw circle
         glPopMatrix();
     }
     else {
+        // Draw simple circle with trajectory path
         glPushMatrix();
         glTranslatef(pos.GetX(), pos.GetY(), 0);
-        drawCircle(radius, 10, isControlled);
+        drawCircle(radius, 10, isControlled); // Draw circle
         glPopMatrix();
         glColor3f(0.8, 0.8, 0.8);
         glLineWidth(2);
         glBegin(GL_LINE_STRIP);
         for (int i = 0; i < (int)pastPos.size(); i++) {
-            glVertex2f(pastPos[i][0], pastPos[i][1]);
+            glVertex2f(pastPos[i][0], pastPos[i][1]); // Draw trajectory path
         }
         glEnd();
     }
 
     // Draw force vectors if enabled
     if (drawForce) {
+        // Separation force (orange)
         glColor3f(1.0, 0.48, 0.0);
         glBegin(GL_LINES);
         glVertex2f(pos.GetX(), pos.GetY());
         glVertex2f(pos.GetX() + separationForce.GetX(), pos.GetY() + separationForce.GetY());
         glEnd();
 
+        // Cohesion force (blue)
         glColor3f(0.0, 0.0, 1.0);
         glBegin(GL_LINES);
         glVertex2f(pos.GetX(), pos.GetY());
         glVertex2f(pos.GetX() + cohesionForce.GetX(), pos.GetY() + cohesionForce.GetY());
         glEnd();
 
+        // Alignment force (green)
         glColor3f(0.0, 1.0, 0.0);
         glBegin(GL_LINES);
         glVertex2f(pos.GetX(), pos.GetY());
@@ -571,7 +578,7 @@ void Agent::Draw() {
 
     // Draw velocity vector if enabled
     if (drawVelocity) {
-        glColor3f(1.0, 1.0, 0.0);
+        glColor3f(1.0, 1.0, 0.0); // Yellow color
         glBegin(GL_LINES);
         glVertex2f(pos.GetX(), pos.GetY());
         glVertex2f(pos.GetX() + vel.GetX(), pos.GetY() + vel.GetY());
@@ -581,16 +588,31 @@ void Agent::Draw() {
 
 // Resolve collision with other agents
 void Agent::ResolveCollisionWithOtherAgents(vector<Agent>& agents) {
+    // Iterate over all agents
     for (int i = 0; i < agents.size(); i++) {
+
+        // Skip self
         if (id == agents[i].GetID()) {
-            continue; // Ignore self
+            continue;
         }
         else {
+
+            // Calculate the distance between this agent and the current other agent
             double dist = (pos - agents[i].GetPos()).norm();
+
+            // Check if a collision occurs
             if (dist < (radius + agents[i].GetRadius())) {
+                
+                // Calculate the overlap distance
                 double overlap = fabs(dist - (radius + agents[i].GetRadius()));
+
+                // Calculate the direction to resolve the collision
                 Vector3d resolveDir = (pos - agents[i].GetPos()).normalize();
+
+                // Move this agent away from the collision
                 pos += (overlap / 2) * resolveDir;
+
+                // Move the other agent away from the collision
                 Vector3d& pos_i = agents[i].GetPos();
                 pos_i += (-overlap / 2) * resolveDir;
             }
