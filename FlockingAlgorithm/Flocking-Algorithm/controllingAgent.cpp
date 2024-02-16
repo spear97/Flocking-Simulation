@@ -15,60 +15,67 @@ using namespace mathtool;
 #include "Simulator.h"
 #include "Environment.h"
 
-double theta = 0;
-double speedTheta = 0.1;
-int drawMode=1;
-//Point translation(0,0);
+double theta = 0; //Initial angle for some rotational calculations.
+double speedTheta = 0.1; //Speed at which the angle theta changes.
+int drawMode=1; //Current mode for drawing objects.
 
+int numDraws=0; //Number of times the drawing function is called.
+int windowW = 800; //Width of the display window.
+int windowH = 800; //Height of the display window.
+static int window_id; //Height of the display window.
+static int menu_id; //Height of the display window.
+vector<MyColor> colors; //Vector to store colors.
+MyColor bColor(1,1,1); //Background color of the display window.
+bool isConvex=true; //Flag indicating whether a shape is convex.
 
-int numDraws=0;
-int windowW = 800;
-int windowH = 800;
-static int window_id;
-static int menu_id;
-//vector<Point> points;
-//vector<Vector2d> edges;
-vector<MyColor> colors;
-//Color bColor(0.2,0.2,0.2);
-MyColor bColor(1,1,1);
-bool isConvex=true;
+Simulator gSim; //Instance of the Simulator class for simulation.
+Environment* gEnv=NULL; //Pointer to an instance of the Environment class, initially set to NULL.
+bool isSimulating=false; //Flag indicating whether simulation is running.
+Vector3d followPt; //Represents a point that the camera may follow.
+bool isFollowing=false; //Flag indicating whether the camera is following a point.
 
-Simulator gSim;
-Environment* gEnv=NULL;
-bool isSimulating=false;
-Vector3d followPt;
-bool isFollowing=false;
+bool addIndividual=true; //Flag indicating whether to add individual elements.
+bool addGroup=false; //Flag indicating whether to add a group of elements.
+bool addAttractionPt=false; //Flag indicating whether to add an attraction point.
+bool addAdversary=false; //Flag indicating whether to add an adversary element.
 
-bool addIndividual=true;
-bool addGroup=false;
-bool addAttractionPt=false;
-bool addAdversary=false;
-
-//Setups Top-Down View
-void init() 
+// Initializes the OpenGL environment and sets up the projection parameters
+void init()
 {
-	//glClearColor(1.0, 1.0, 1.0, 0.0); //Set display-window color to white.
-	glClearColor(bColor.r, bColor.g, bColor.b, 0.0); //Set display-window color to white.
+	// Set the background color for the display window
+	glClearColor(bColor.r, bColor.g, bColor.b, 0.0);
 
-	glMatrixMode(GL_PROJECTION);      //Set projection parameters.
+	// Select the projection matrix and reset it to the default state
+	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
-	//gluOrtho2D(0.0, 200.0, 0.0, 150.0);
-	//gluOrtho2D(0.0, windowW, 0.0, windowH);
-	gluOrtho2D(-windowW/2,windowW/2, -windowH/2, windowH/2);
-	if( gEnv == NULL ) 
-	  gEnv = new Environment("env.txt",-windowW/2,windowW/2, -windowH/2, windowH/2);
+
+	// Set up an orthographic projection for a top-down view
+	gluOrtho2D(-windowW / 2, windowW / 2, -windowH / 2, windowH / 2);
+
+	// Create an environment if not already initialized
+	if (gEnv == NULL)
+		gEnv = new Environment("env.txt", -windowW / 2, windowW / 2, -windowH / 2, windowH / 2);
 }
 
-void setFollowCamera() 
+
+// Adjusts the projection matrix to follow a specific point
+void setFollowCamera()
 {
-  cout << "setFollowCamera followPt: " << followPt << endl;
-  glMatrixMode(GL_PROJECTION);      //Set projection parameters.
-  glLoadIdentity();
-  double newXMin = followPt[0] - windowW/10;
-  double newXMax = followPt[0] + windowW/10;
-  double newYMin = followPt[1] - windowH/10;
-  double newYMax = followPt[1] + windowH/10;
-  gluOrtho2D(newXMin, newXMax, newYMin, newYMax);
+	// Output the follow point for debugging purposes
+	cout << "setFollowCamera followPt: " << followPt << endl;
+
+	// Set the projection matrix and reset it to the default state
+	glMatrixMode(GL_PROJECTION);
+	glLoadIdentity();
+
+	// Calculate the new boundaries for the orthographic projection based on the follow point
+	double newXMin = followPt[0] - windowW / 10;
+	double newXMax = followPt[0] + windowW / 10;
+	double newYMin = followPt[1] - windowH / 10;
+	double newYMax = followPt[1] + windowH / 10;
+
+	// Set up an orthographic projection with the new boundaries
+	gluOrtho2D(newXMin, newXMax, newYMin, newYMax);
 }
 
 void WritePointXYONLYsToFile(string filename) 
@@ -81,52 +88,60 @@ void LoadPointXYONLYsFromFile(string filename)
 	//TODO
 }
 
-//Menu Functionality
-void menu(int num) 
+// Menu Functionality: Handles menu selections
+void menu(int num)
 {
-  string fileToLoad="";
-  bool fileSpecified = false;
-  switch (num)
-  {
-  case -1:
-	  //points.clear();
-	  //edges.clear();
-	  glutPostRedisplay();
-	  break;
-  case 0:
-	  glutDestroyWindow(window_id);
-	  exit(0);
-	  break;
-  case 1:
-	  addIndividual = true;
-	  addGroup = false;
-	  addAttractionPt = false;
-	  break;
-  case 2:
-	  addIndividual = false;
-	  addGroup = true;
-	  addAttractionPt = false;
-	  break;
-  case 3:
-	  addAttractionPt = true;
-	  addIndividual = false;
-	  addGroup = false;
-	  break;
-  case 4:
-	  addAdversary = !addAdversary;
-	  break;
-  }
+	string fileToLoad = "";
+	bool fileSpecified = false;
+
+	// Switch statement to handle different menu options
+	switch (num)
+	{
+	case -1:
+		// Clear points and edges, then trigger a redisplay
+		glutPostRedisplay();
+		break;
+	case 0:
+		// Destroy the window and exit the program
+		glutDestroyWindow(window_id);
+		exit(0);
+		break;
+	case 1:
+		// Set mode to add individual
+		addIndividual = true;
+		addGroup = false;
+		addAttractionPt = false;
+		break;
+	case 2:
+		// Set mode to add group
+		addIndividual = false;
+		addGroup = true;
+		addAttractionPt = false;
+		break;
+	case 3:
+		// Set mode to add attraction point
+		addAttractionPt = true;
+		addIndividual = false;
+		addGroup = false;
+		break;
+	case 4:
+		// Toggle the addition of adversaries
+		addAdversary = !addAdversary;
+		break;
+	}
 }
 
-//Allows for creation of a Menu
-void createMenu() 
+
+// Creates a menu for user interaction
+void createMenu()
 {
+	// Create the menu and attach it to the right mouse button
 	menu_id = glutCreateMenu(menu);
 	glutAddMenuEntry("Clear PointXYONLYs", -1);
-	glutAddMenuEntry("Quit",0);
-	glutAddMenuEntry("Add Indiv.",1);
-	glutAddMenuEntry("Add Group",2);
-	glutAddMenuEntry("Add Attraction Point",3);
+	glutAddMenuEntry("Quit", 0);
+	glutAddMenuEntry("Add Indiv.", 1);
+	glutAddMenuEntry("Add Group", 2);
+	glutAddMenuEntry("Add Attraction Point", 3);
 	glutAddMenuEntry("Toggle Adversary", 4);
 	glutAttachMenu(GLUT_RIGHT_BUTTON);
 }
