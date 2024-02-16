@@ -57,7 +57,6 @@ void init()
 		gEnv = new Environment("env.txt", -windowW / 2, windowW / 2, -windowH / 2, windowH / 2);
 }
 
-
 // Adjusts the projection matrix to follow a specific point
 void setFollowCamera()
 {
@@ -76,16 +75,6 @@ void setFollowCamera()
 
 	// Set up an orthographic projection with the new boundaries
 	gluOrtho2D(newXMin, newXMax, newYMin, newYMax);
-}
-
-void WritePointXYONLYsToFile(string filename) 
-{
-	//TODO
-}
-
-void LoadPointXYONLYsFromFile(string filename) 
-{
-	//TODO
 }
 
 // Menu Functionality: Handles menu selections
