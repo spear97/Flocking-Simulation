@@ -168,6 +168,26 @@ namespace mathtool {
             return *this / n;
         }
 
+        /////////// Scalers ///////////
+
+        // Method to scale the vector in place by a specified length
+        Vector3d& selfScale(const double& _l) {
+            double n = norm(); // Calculate the norm of the vector
+            // Check if the norm is close to zero
+            if (n < std::numeric_limits<double>::epsilon())
+                return *this = Vector3d(); // If so, set the vector to zero vector
+            return *this *= (_l / n); // Scale the vector by the specified length
+        }
+
+        // Method to return a scaled copy of the vector by a specified length
+        Vector3d scale(const double& _l) const {
+            double n = norm(); // Calculate the norm of the vector
+            // Check if the norm is close to zero
+            if (n < std::numeric_limits<double>::epsilon())
+                return Vector3d(); // If so, return zero vector
+            return *this * (_l / n); // Return the scaled vector
+        }
+
         /////////////Accessors/////////////
 
         // Accessor for individual components (const)
@@ -180,6 +200,14 @@ namespace mathtool {
         double& operator[](int i) {
             // Access individual components of the vector (mutable)
             return m_v[i];
+        }
+
+        /////////////Reset/////////////
+        void reset()
+        {
+            m_v[0] = 0.0;
+            m_v[1] = 0.0;
+            m_v[2] = 0.0;
         }
 
         /////////////Getters/////////////

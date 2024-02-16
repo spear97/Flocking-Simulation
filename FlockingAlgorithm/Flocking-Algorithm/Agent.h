@@ -1,120 +1,102 @@
-#ifndef AGENT
+#ifndef AGENT // Header guard to prevent multiple inclusion of the same header file
 #define AGENT
-#include "Vector.h"
-using namespace mathtool;
-#include <vector>
-using namespace std;
 
-class Agent 
-{
+#include "Vector.h" // Include the Vector header file
+using namespace mathtool; // Namespace for mathematical tools
+#include <vector> // Include the vector library
+using namespace std; // Namespace for standard library
+
+class Agent { // Declaration of the Agent class
 public:
-  Agent();
-  Agent(const Agent& other);
+    Agent(); // Default constructor
+    Agent(const Agent& other); // Copy constructor
 
-  void Init(int _id, Vector3d _pos, Vector3d _vel, double _mass, double _maxVel, double _maxAccel, double _viewRadius);
-  Vector3d& GetPos() 
-  { 
-	  return pos; 
-  }
+    // Method to initialize agent properties
+    void Init(int _id, Vector3d _pos, Vector3d _vel, double _mass, double _maxVel, double _maxAccel, double _viewRadius);
 
-  Vector3d& GetVel() 
-  { 
-	  return vel; 
-  }
+    // Methods to get agent position, velocity, and radius
+    Vector3d& GetPos() { return pos; }
+    Vector3d& GetVel() { return vel; }
+    double GetRadius() { return radius; }
 
-  double GetRadius() 
-  { 
-	  return radius; 
-  }
+    // Method to get agent ID
+    int GetID() { return id; }
 
-  int GetID() 
-  { 
-	  return id; 
-  }
+    // Method to update agent state based on the environment and other agents
+    void Update(vector<Agent>& agents, double dt);
 
-  void Update(vector<Agent>& agents, double dt);
-  void Draw();
+    // Method to draw the agent
+    void Draw();
 
-  void SetControlled(bool ic) 
-  { 
-	  isControlled = ic; 
-  }
+    // Methods to control the agent
+    void SetControlled(bool ic) { isControlled = ic; }
+    void ToggleControlled() { isControlled = !isControlled; }
+    void SetControl(string control);
 
-  void ToggleControlled() 
-  { 
-	  isControlled = !isControlled; 
-  }
+    // Methods to handle adversary behavior
+    bool IsAdversary() { return isAdversary; }
+    void ToggleAdversary() { isAdversary = !isAdversary; }
+    void setIsAdversary(bool _adv) { isAdversary = _adv; }
 
-  void SetControl(string control);
+    // Method to calculate force exerted by control
+    Vector3d GetForceFromControl();
 
-  bool IsAdversary() 
-  { 
-	  return isAdversary; 
-  }
+    // Method to resolve collisions with other agents
+    void ResolveCollisionWithOtherAgents(vector<Agent>& agents);
 
-  void ToggleAdversary() 
-  { 
-	  isAdversary = !isAdversary; 
-  }
-  void setIsAdversary(bool _adv) { isAdversary = _adv; }
-  
-  Vector3d GetForceFromControl();
-  void ResolveCollisionWithOtherAgents(vector<Agent>& agents);
-  Vector3d GetEnvironmentalForce(double mag);
+    // Method to calculate environmental force
+    Vector3d GetEnvironmentalForce(double mag);
 
-  float GetAdvLife() { return AdvR; }
-  float GetBaseLife() { return BaseB; }
- 
+    // Methods to get adversary and base life values
+    float GetAdvLife() { return AdvR; }
+    float GetBaseLife() { return BaseB; }
+
 private:
+    // Member variables
+    int id; // Agent ID
+    Vector3d pos; // Position vector
+    Vector3d oldPos; // Old position vector
+    Vector3d vel; // Velocity vector
+    Vector3d separationForce; // Separation force vector
+    Vector3d cohesionForce; // Cohesion force vector
+    Vector3d alignmentForce; // Alignment force vector
+    Vector3d obstacleForce; // Obstacle avoidance force vector
+    vector<Vector3d> pastPos; // Vector to store past positions
+    int tailLength; // Length of the tail
 
-  int id;
-  Vector3d pos;
-  Vector3d oldPos;
-  Vector3d vel;
-  //Vector3d accel;
-  Vector3d separationForce;
-  Vector3d cohesionForce;
-  Vector3d alignmentForce;
-  Vector3d obstacleForce;
-  vector<Vector3d> pastPos;
-  int tailLength;
-  
-  double separationComponent;
-  double cohesionComponent;
-  double alignmentComponent;
+    double separationComponent; // Separation component
+    double cohesionComponent; // Cohesion component
+    double alignmentComponent; // Alignment component
 
-  double radius;
-  double mass;
-  double maxVel;
-  double maxAccel;
-  double viewRadius;
+    double radius; // Radius of the agent
+    double mass; // Mass of the agent
+    double maxVel; // Maximum velocity of the agent
+    double maxAccel; // Maximum acceleration of the agent
+    double viewRadius; // View radius of the agent
 
-  //Move to Constructor and Copy Constructor
-  float dmg;
-  float lifespan;
-  float AdvR, AdvG, AdvB;
-  float BaseR, BaseG, BaseB;
-  int FinR, FinG, FinB;
+    float dmg; // Damage
+    float lifespan; // Lifespan
+    float AdvR, AdvG, AdvB; // Adversary color components
+    float BaseR, BaseG, BaseB; // Base color components
+    int FinR, FinG, FinB; // Final color components
 
-  bool initialized;
+    bool initialized; // Flag indicating if the agent is initialized
 
-  pair<int,int> gridCell;
+    pair<int, int> gridCell; // Grid cell indices
 
-  bool drawForce;
-  bool drawVelocity;
-  bool drawVR;
+    bool drawForce; // Flag to indicate if force should be drawn
+    bool drawVelocity; // Flag to indicate if velocity should be drawn
+    bool drawVR; // Flag to indicate if view radius should be drawn
 
+    double ori; // Orientation
+    double status; // Status
+    double maxStatus; // Maximum status
 
-  /////////////////////////
-  double ori;
-  /////////////////////////
-  double status;
-  double maxStatus;
-  /////////////////////////
-  bool isControlled;
-  string lastControl;
-  int timeInControl;
-  /////////////////////////
-  bool isAdversary; 
+    bool isControlled; // Flag indicating if the agent is controlled
+    string lastControl; // Last control applied to the agent
+    int timeInControl; // Time spent in control
+
+    bool isAdversary; // Flag indicating if the agent is an adversary
 };
-#endif
+
+#endif // End of header guard
