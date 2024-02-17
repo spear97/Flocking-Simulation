@@ -8,8 +8,8 @@ This project serves to illustrate how the natural phenomenon of flocking can be 
 
 ## Table of Contents
 1. Dependencies
-    - C++
-    - OpenGL
+    - [C++](#C++)
+    - [OpenGL](#OpenGL)
 2. What is Flocking?
 3. Classes
     - [Agent](#Agent)
