@@ -12,7 +12,7 @@ This project serves to illustrate how the natural phenomenon of flocking can be 
 1. Dependencies
     - [C++](#C++)
     - [OpenGL](#OpenGL)
-2. What is Flocking?
+2. [What is Flocking?](#Flocking)
    - Implemented Features
    - Visual Representation
    - Simulation Dynamics
@@ -84,7 +84,7 @@ For Windows users, OpenGL libraries might be provided by the graphics card drive
 
 Ensure that your development environment is properly configured to include `OpenGL` headers and link against the OpenGL libraries during the compilation process.
 
-## What is Flocking?
+## Flocking
 
 This project implements a Flocking Simulation using boids, with specific focus on animating individual flock members as fish or birds, implementing adversarial agents, and incorporating a life span for each agent.
 
