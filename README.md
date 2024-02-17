@@ -54,20 +54,20 @@ The `Cell` is designed to represent cells in an environment grid. The Cell class
 
 - Constructor for initializing cell properties such as indices, dimensions, center point, and blocking status.
 - Method to draw the cell visually in a graphical simulation environment.
-- Method to retrieve the center of the cell as a `Vector3d` object.
-- Method to check for collisions between a `point` and the `cell`.
+- Method to retrieve the center of the cell as a [`Vector3d`](#Vector3d) object.
+- Method to check for collisions between a [`point`](#Point) and the `cell`.
 - Method to handle collisions with the edges of the `cell`, including flipping coordinates and determining collision conditions.
 
 #### Usage 
 
 - Integrate the `Cell` class into your project structure.
-- Include the necessary dependencies, including the `Point` and `Vector3d` classes.
+- Include the necessary dependencies, including the [`Point`](#Point) and [`Vector3d`](#Vector3d) classes.
 - Customize the `Cell` class behavior according to your project requirements, adjusting methods and properties as needed.
 - Implement functionality to interact with cells, such as checking collisions and updating cell properties based on the `environment`.
 
 ### Environment
 
-The `Environment` class provided in this repository represents an environment grid. It offers functionality for creating, visualizing, and interacting with the grid. This class includes methods for drawing the environment, obtaining cell indices for given points, finding the closest blocked `cell`, managing wrapped positions, ensuring valid positions considering collisions and wrapping, making the environment empty, and adding attraction points.
+The `Environment` class provided in this repository represents an environment grid. It offers functionality for creating, visualizing, and interacting with the grid. This class includes methods for drawing the environment, obtaining cell indices for given points, finding the closest blocked [`cell`](#Cell), managing wrapped positions, ensuring valid positions considering collisions and wrapping, making the environment empty, and adding attraction points.
 
 #### Features
 
@@ -84,7 +84,7 @@ The `Environment` class provided in this repository represents an environment gr
 #### Usage
 
 - Integrate the `Environment` class into your project structure.
-- Include the necessary dependencies, such as the Point and `Vector3d` classes.
+- Include the necessary dependencies, such as the Point and [`Vector3d`](#Vector3d) classes.
 - Customize the `Environment` class behavior according to your project requirements, adjusting methods and properties as needed.
 - Utilize the provided methods to interact with the environment, including drawing, obtaining cell indices, managing positions, and adding attraction points.
 
@@ -135,8 +135,8 @@ The Simulator class provided in this repository manages a simulation environment
 
 #### Usage
 
-- Include the necessary dependencies, such as `Vector.h` for vector manipulation and Agent.h for the `Agent` class.
-- Instantiate a `Simulator` object to manage the simulation environment.
+- Include the necessary dependencies, such as [`Vector3d`](#Vector3d) for vector manipulation and Agent.h for the [`Agent`](#Agent) class.
+- Instantiate a `Simulator`object to manage the simulation environment.
 - Add agents to the simulation using the `AddMember` method, specifying their attributes.
 - Draw the simulation environment using the `Draw` method to visualize agent positions and interactions.
 - Update the simulation state using the `Update` method to reflect changes over time.
