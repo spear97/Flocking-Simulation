@@ -67,7 +67,43 @@ The `Cell` is designed to represent cells in an environment grid. The Cell class
 
 ### Environment
 
+The `Environment` class provided in this repository represents an environment grid. It offers functionality for creating, visualizing, and interacting with the grid. This class includes methods for drawing the environment, obtaining cell indices for given points, finding the closest blocked `cell`, managing wrapped positions, ensuring valid positions considering collisions and wrapping, making the environment empty, and adding attraction points.
+
+#### Features
+
+- Default constructor for creating an environment.
+- Parameterized constructor allowing customization of environment properties such as input file, minimum and maximum coordinates, and grid dimensions.
+- Method to draw the environment graphically.
+- Methods for retrieving cell indices, finding the closest blocked cell, and managing wrapped positions.
+- Functionality for obtaining valid positions for points, considering collisions and wrapping.
+- Ability to create an empty environment or add attraction points.
+- Accessor method for retrieving attraction points stored in the environment.
+- Utilizes a 2D array to represent the grid of cells.
+- Stores information about the environment's dimensions, grid cell dimensions, and input file.
+
+#### Usage
+
+- Integrate the `Environment` class into your project structure.
+- Include the necessary dependencies, such as the Point and `Vector3d` classes.
+- Customize the `Environment` class behavior according to your project requirements, adjusting methods and properties as needed.
+- Utilize the provided methods to interact with the environment, including drawing, obtaining cell indices, managing positions, and adding attraction points.
+
 ### MyColor
+
+The `MyColor` class provided in this repository represents a color using RGB (Red, Green, Blue) components. It offers functionality for initializing color objects with RGB values and an optional name, printing color information, and storing RGB components along with a name.
+
+#### Features 
+
+- Constructor to initialize `MyColor` objects with RGB values and an optional name.
+- Method to print the color components along with the name.
+- Member variables to store RGB components and the name of the color.
+- Utilizes a header guard to prevent multiple inclusions of the same header file.
+
+#### Usage
+
+- Integrate the `MyColor` class header file into your project structure.
+- Use the `MyColor` class to represent colors in your application, initializing objects with RGB values and optional names.
+- Utilize the provided methods, such as printing color information, to interact with `MyColor` objects as needed.
 
 ### Point
 
