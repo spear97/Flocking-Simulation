@@ -40,11 +40,11 @@ The `Agent` class represents an entity in a simulation environment with properti
 
 #### Usage
 
-- `Header Includes`: Includes necessary header files such as <windows.h>, <GL/glut.h>, and custom headers "Agent.h" and "Environment.h".
-- `Global Variables`: Declares global variables like agDebug, theta, rotOtherWay, and gEnv.
-- `Agent Class`: Defines an Agent class with member variables and functions to represent and manipulate agents. The class includes constructors, initialization functions, methods for updating agent state, drawing agents, handling controls, calculating forces, resolving collisions, and more.
-- `Drawing Functions`: Defines functions to draw various shapes like circles, triangles, fish bodies, tails, and fins using OpenGL commands.
-- `Collision Resolution`: Implements a method ResolveCollisionWithOtherAgents to handle collisions between agents. 
+- Includes necessary header files such as <windows.h>, <GL/glut.h>, and custom headers "Agent.h" and "Environment.h".
+- Declares global variables like agDebug, theta, rotOtherWay, and gEnv.
+- Defines an Agent class with member variables and functions to represent and manipulate agents. The class includes constructors, initialization functions, methods for updating agent state, drawing agents, handling controls, calculating forces, resolving collisions, and more.
+- Defines functions to draw various shapes like circles, triangles, fish bodies, tails, and fins using OpenGL commands.
+- Implements a method ResolveCollisionWithOtherAgents to handle collisions between agents. 
 
 ### Cell
 
@@ -107,6 +107,40 @@ The `MyColor` class provided in this repository represents a color using RGB (Re
 
 ### Point
 
+The `Point` class provided in this repository represents a point in three-dimensional space. It offers functionality for initializing point objects with optional x, y, and z coordinates, as well as methods for retrieving the individual coordinates.
+
+#### Features 
+
+- Constructor to initialize Point objects with optional x, y, and z coordinates.
+- Methods to retrieve the x, y, and z coordinates of the point.
+- Member variables to store the x, y, and z coordinates of the point.
+- Utilizes a header guard to prevent multiple inclusions of the same header file.
+
+#### Usage
+- Integrate the `Point` class header file into your project structure.
+- Use the `Point` class to represent points in three-dimensional space, initializing objects with optional x, y, and z coordinates.
+- Utilize the provided methods, such as retrieving individual coordinates, to interact with `Point` objects as needed.
+
 ### Simulator
+
+The Simulator class provided in this repository manages a simulation environment, including the addition and manipulation of agents, drawing the simulation, updating the simulation state, and controlling agents' behaviors.
+
+#### Features
+
+- Constructor to initialize a `Simulator` object.
+- Methods to add agents to the simulation, draw the simulation environment, and update the simulation state.
+- Functionality to increment the controlling agent, send control signals to agents, and toggle control between adversaries and agents.
+- Ability to retrieve the point to follow in the simulation.
+- Utilizes header guards to prevent multiple inclusions of the same header file.
+
+#### Usage
+
+- Include the necessary dependencies, such as `Vector.h` for vector manipulation and Agent.h for the `Agent` class.
+- Instantiate a `Simulator` object to manage the simulation environment.
+- Add agents to the simulation using the `AddMember` method, specifying their attributes.
+- Draw the simulation environment using the `Draw` method to visualize agent positions and interactions.
+- Update the simulation state using the `Update` method to reflect changes over time.
+- Control agents' behaviors by incrementing the controlling agent, sending control signals, or toggling control between adversaries and agents.
+- Retrieve relevant information, such as the point to follow, using appropriate methods.
 
 ### Vecot3d
