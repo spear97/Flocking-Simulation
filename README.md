@@ -10,13 +10,13 @@ This project serves to illustrate how the natural phenomenon of flocking can be 
 1. Dependencies
 2. What is Flocking?
 3. Classes
-  - Agent
-  - Cell
-  - Environment
-  - MyColor
-  - Point
-  - Simulator
-  - Vector3d
+    - Agent
+    - Cell
+    - Environment
+    - MyColor
+    - Point
+    - Simulator
+    - Vector3d
 
 ## Dependencies
 
