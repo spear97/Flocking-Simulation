@@ -24,17 +24,42 @@ This project serves to illustrate how the natural phenomenon of flocking can be 
 
 ### C++
 
-### OpenGL
+`C++` is a powerful programming language widely used for developing system software, application software, and high-performance software components. It provides features such as object-oriented programming, generic programming, and low-level memory manipulation.
 
-OpenGL (Open Graphics Library) is a cross-platform API for rendering 2D and 3D graphics. It provides a set of functions for interacting with graphics hardware to produce high-quality graphical output. In this project, OpenGL is utilized for tasks such as rendering graphics, managing colors, and possibly handling user input related to graphics.
+#### Role in the Project
 
-#### Purpose
-
-The purpose of integrating OpenGL into this project is to leverage its capabilities for visualizing data, creating interactive user interfaces, or implementing graphical simulations. OpenGL allows for efficient rendering of complex scenes and provides a flexible framework for developing interactive applications with rich graphical interfaces.
+`C++` serves as the primary programming language for this project. It is used to implement the core functionality, algorithms, and data structures required for the project's objectives. C++ offers performance benefits and flexibility, making it suitable for tasks ranging from low-level memory management to high-level abstraction.
 
 #### Dependencies
 
-To use OpenGL in this project, ensure that you have the necessary OpenGL libraries and headers installed on your system. Additionally, depending on your development environment, you may need to configure your build system to link against the OpenGL libraries and include the appropriate headers in your source files.
+To use `C++` for this project, you need a `C++` compiler and standard library support. The specific compiler and library versions may vary depending on your development environment and project requirements.
+
+#### Setup Instructions
+
+Ensure that you have a `C++` compiler installed on your system. Popular `C++` compilers include:
+
+- `GNU Compiler Collection (GCC)`: Available on Unix-based systems like Linux and macOS.
+- `Clang`: Another popular compiler available on Unix-based systems.
+- `Microsoft Visual C++ Compiler`: For Windows users, Microsoft Visual Studio provides a `C++` compiler and development environment.
+
+Additionally, ensure that your development environment is properly configured to compile and link `C++` source files. This may involve setting up build scripts, Makefiles, or using integrated development environments (IDEs) like `Visual Studio`, `CLion`, or `Xcode`.
+
+#### Additional Notes
+
+- Familiarize yourself with `C++` language features, best practices, and coding standards to ensure efficient and maintainable code.
+- Take advantage of `C++` libraries and frameworks to streamline development and leverage existing solutions for common tasks.
+
+### OpenGL
+
+`OpenGL` (Open Graphics Library) is a cross-platform API for rendering 2D and 3D graphics. It provides a set of functions for interacting with graphics hardware to produce high-quality graphical output. In this project, OpenGL is utilized for tasks such as rendering graphics, managing colors, and possibly handling user input related to graphics.
+
+#### Purpose
+
+The purpose of integrating `OpenGL` into this project is to leverage its capabilities for visualizing data, creating interactive user interfaces, or implementing graphical simulations. OpenGL allows for efficient rendering of complex scenes and provides a flexible framework for developing interactive applications with rich graphical interfaces.
+
+#### Dependencies
+
+To use `OpenGL` in this project, ensure that you have the necessary `OpenGL` libraries and headers installed on your system. Additionally, depending on your development environment, you may need to configure your build system to link against the `OpenGL` libraries and include the appropriate headers in your source files.
 
 #### SetUp Instructions
 
@@ -50,9 +75,9 @@ sudo apt-get install libglu1-mesa-dev freeglut3-dev mesa-common-dev
 brew install glfw3
 ```
 
-For Windows users, OpenGL libraries might be provided by the graphics card drivers or available as part of development toolkits like the OpenGL Extension Wrangler Library (GLEW) or the GLFW library.
+For Windows users, OpenGL libraries might be provided by the graphics card drivers or available as part of development toolkits like the `OpenGL` Extension Wrangler Library (GLEW) or the GLFW library.
 
-Ensure that your development environment is properly configured to include OpenGL headers and link against the OpenGL libraries during the compilation process.
+Ensure that your development environment is properly configured to include `OpenGL` headers and link against the OpenGL libraries during the compilation process.
 
 ## What is Flocking?
 
