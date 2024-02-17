@@ -143,4 +143,25 @@ The Simulator class provided in this repository manages a simulation environment
 - Control agents' behaviors by incrementing the controlling agent, sending control signals, or toggling control between adversaries and agents.
 - Retrieve relevant information, such as the point to follow, using appropriate methods.
 
-### Vecot3d
+### Vector3d
+
+The `Vector3d` class provided in this repository represents a 3-dimensional vector and offers various operations for vector manipulation, including arithmetic operations, comparison operators, and utility methods.
+
+#### Features
+
+- Constructors to initialize a vector with optional x, y, and z components, or from another vector or an array.
+- Assignment operators to set new values for the vector's components.
+- Comparison operators for equality and inequality checks between vectors.
+- Compound assignment operators for addition, subtraction, scalar multiplication, and scalar division.
+- Unary operators for negation.
+- Binary arithmetic operators for addition, subtraction, scalar multiplication, and scalar division.
+- Utility methods for dot product, magnitude, normalization, scaling, and component access.
+- Additional utility functions for scalar multiplication with vectors and output operator for vectors.
+- Utilizes header guards to prevent multiple inclusions of the same header file.
+
+#### Usage
+
+- Include the `Vector.h` header file in your project to access the `Vector3d` class.
+- Instantiate `Vector3d` objects to represent 3-dimensional vectors, optionally specifying their x, y, and z components.
+- Utilize the provided methods and operators to perform various vector operations, such as addition, subtraction, scalar multiplication, normalization, and scaling.
+- Integrate the `Vector3d` class into your codebase to handle 3-dimensional vector manipulations efficiently and accurately.
