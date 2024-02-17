@@ -40,7 +40,14 @@ To use OpenGL in this project, ensure that you have the necessary OpenGL librari
 
 If you're using a package manager, such as apt (for Linux) or Homebrew (for macOS), you can install OpenGL libraries using the respective package manager commands. For example:
 
-```Linux
+- Linux (apt):
+```bash
+sudo apt-get install libglu1-mesa-dev freeglut3-dev mesa-common-dev
+```
+
+- macOS (Homebrew):
+```
+brew install glfw3
 ```
 
 ## What is Flocking?
