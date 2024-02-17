@@ -81,6 +81,31 @@ Ensure that your development environment is properly configured to include `Open
 
 ## What is Flocking?
 
+This project implements a Flocking Simulation using boids, with specific focus on animating individual flock members as fish or birds, implementing adversarial agents, and incorporating a life span for each agent.
+
+### Implemented Features
+
+1. Animating Individual Flock Members
+Flock members are animated to move as either fish or birds. For fish animation, each fish consists of a body, tail, and fins. The body is represented by an ellipse translated and rotated based on the agent's position and orientation. The tail and fins are rendered separately, offset from the body to create a realistic appearance.
+
+2. Implementing Adversarial Agents
+Adversarial agents are introduced to disrupt flocking behavior. They avoid flocking rules and target the closest non-adversarial agent, simulating a predator-prey dynamic. Adversarial agents are visually distinguished by a distinct color, such as red, while non-adversarial agents are represented in a different color, such as blue.
+
+3. Implementing Life Span for Each Agent
+Each agent, whether adversarial or non-adversarial, has a limited life span within the simulation. As agents exist in the environment, their color gradually darkens over time. Once an agent's color reaches black, indicating the end of its life span, it is removed from the simulation. This feature adds a dynamic element to the simulation, simulating life and death within the flock.
+
+### Visual Representation
+
+- `Fish`: Represented by ellipses for the body, with separate polygons for the tail and fins. Color of the fish indicates its status as adversarial or non-adversarial.
+- `Adversarial Agents`: Distinguished by a distinct color, such as red, to indicate their disruptive behavior.
+- `Non-Adversarial Agents`: Represented in a different color, such as blue, to signify their peaceful flocking behavior.
+- `Life Span Visualization`: Agents gradually darken in color over time until reaching black, representing the end of their life span and removal from the simulation.
+
+### Simulation Dynamics
+
+- `Flocking Behavior`: Agents exhibit flocking behavior, while adversarial agents disrupt this behavior by targeting non-adversarial agents.
+- `Life and Death`: Agents have a finite life span, gradually darkening in color over time until they die and are removed from the simulation.
+
 ## Classes
 
 ### Agent
