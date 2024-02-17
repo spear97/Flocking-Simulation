@@ -54,18 +54,16 @@ The `Cell` is designed to represent cells in an environment grid. The Cell class
 
 - Constructor for initializing cell properties such as indices, dimensions, center point, and blocking status.
 - Method to draw the cell visually in a graphical simulation environment.
-- Method to retrieve the center of the cell as a Vector3d object.
-- Method to check for collisions between a point and the cell.
-- Method to handle collisions with the edges of the cell, including flipping coordinates and determining collision conditions.
+- Method to retrieve the center of the cell as a `Vector3d` object.
+- Method to check for collisions between a `point` and the `cell`.
+- Method to handle collisions with the edges of the `cell`, including flipping coordinates and determining collision conditions.
 
 #### Usage 
 
-- Integrate the Cell class into your project structure.
-- Include the necessary dependencies, including the Point and Vector3d classes.
-- Customize the Cell class behavior according to your project requirements, adjusting methods and properties as needed.
-- Implement functionality to interact with cells, such as checking collisions and updating cell properties based on the environment.
-- Test the integrated code thoroughly to ensure it behaves as expected, verifying cell drawing, collision detection, and edge handling.
-- Document the code and its usage for future reference and maintenance.
+- Integrate the `Cell` class into your project structure.
+- Include the necessary dependencies, including the `Point` and `Vector3d` classes.
+- Customize the `Cell` class behavior according to your project requirements, adjusting methods and properties as needed.
+- Implement functionality to interact with cells, such as checking collisions and updating cell properties based on the `environment`.
 
 ### Environment
 
