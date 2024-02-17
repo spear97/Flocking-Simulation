@@ -26,6 +26,10 @@ This project serves to illustrate how the natural phenomenon of flocking can be 
 
 ### Agent
 
+The `Agent` class represents an entity in a simulation environment with properties such as position, velocity, and behavior. This document outlines the functionalities and usage of the `Agent` class.
+
+#### Test
+
 ### Cell
 
 ### Environment
