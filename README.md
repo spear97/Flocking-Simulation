@@ -11,6 +11,9 @@ This project serves to illustrate how the natural phenomenon of flocking can be 
     - [C++](#C++)
     - [OpenGL](#OpenGL)
 2. What is Flocking?
+   - Implemented Features
+   - Visual Representation
+   - Simulation Dynamics
 3. Classes
     - [Agent](#Agent)
     - [Cell](#Cell)
