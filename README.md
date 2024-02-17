@@ -6,6 +6,8 @@ This project serves to illustrate how the natural phenomenon of flocking can be 
 
 ## Screenshots
 
+![Custom Screenshot](https://github.com/spear97/Flocking-Simulation/blob/main/FlockingAlgorithm/Screenshots/screenshot1.png) ![Custom Screenshot](https://github.com/spear97/Flocking-Simulation/blob/main/FlockingAlgorithm/Screenshots/screenshot2.png) ![Custom Screenshot](https://github.com/spear97/Flocking-Simulation/blob/main/FlockingAlgorithm/Screenshots/screenshot3.png) ![Custom Screenshot](https://github.com/spear97/Flocking-Simulation/blob/main/FlockingAlgorithm/Screenshots/screenshot4.png) ![Custom Screenshot](https://github.com/spear97/Flocking-Simulation/blob/main/FlockingAlgorithm/Screenshots/screenshot5.png) ![Custom Screenshot](https://github.com/spear97/Flocking-Simulation/blob/main/FlockingAlgorithm/Screenshots/screenshot6.png)     
+
 ## Table of Contents
 1. Dependencies
     - [C++](#C++)
