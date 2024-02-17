@@ -40,11 +40,11 @@ The `Agent` class represents an entity in a simulation environment with properti
 
 #### Usage
 
-- Header Includes: Includes necessary header files such as <windows.h>, <GL/glut.h>, and custom headers "Agent.h" and "Environment.h".
-- Global Variables: Declares global variables like agDebug, theta, rotOtherWay, and gEnv.
-- Agent Class: Defines an Agent class with member variables and functions to represent and manipulate agents. The class includes constructors, initialization functions, methods for updating agent state, drawing agents, handling controls, calculating forces, resolving collisions, and more.
-- Drawing Functions: Defines functions to draw various shapes like circles, triangles, fish bodies, tails, and fins using OpenGL commands.
-- Collision Resolution: Implements a method ResolveCollisionWithOtherAgents to handle collisions between agents.
+- `Header Includes`: Includes necessary header files such as <windows.h>, <GL/glut.h>, and custom headers "Agent.h" and "Environment.h".
+- `Global Variables`: Declares global variables like agDebug, theta, rotOtherWay, and gEnv.
+- `Agent Class`: Defines an Agent class with member variables and functions to represent and manipulate agents. The class includes constructors, initialization functions, methods for updating agent state, drawing agents, handling controls, calculating forces, resolving collisions, and more.
+- `Drawing Functions`: Defines functions to draw various shapes like circles, triangles, fish bodies, tails, and fins using OpenGL commands.
+- `Collision Resolution`: Implements a method ResolveCollisionWithOtherAgents to handle collisions between agents.
 
 ### Cell
 
