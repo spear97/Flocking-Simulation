@@ -50,6 +50,10 @@ sudo apt-get install libglu1-mesa-dev freeglut3-dev mesa-common-dev
 brew install glfw3
 ```
 
+For Windows users, OpenGL libraries might be provided by the graphics card drivers or available as part of development toolkits like the OpenGL Extension Wrangler Library (GLEW) or the GLFW library.
+
+Ensure that your development environment is properly configured to include OpenGL headers and link against the OpenGL libraries during the compilation process.
+
 ## What is Flocking?
 
 ## Classes
