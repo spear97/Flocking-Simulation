@@ -8,6 +8,8 @@ This project serves to illustrate how the natural phenomenon of flocking can be 
 
 ## Table of Contents
 1. Dependencies
+    - C++
+    - OpenGL
 2. What is Flocking?
 3. Classes
     - [Agent](#Agent)
@@ -19,6 +21,27 @@ This project serves to illustrate how the natural phenomenon of flocking can be 
     - [Vector3d](#Vector3d)
 
 ## Dependencies
+
+### C++
+
+### OpenGL
+
+OpenGL (Open Graphics Library) is a cross-platform API for rendering 2D and 3D graphics. It provides a set of functions for interacting with graphics hardware to produce high-quality graphical output. In this project, OpenGL is utilized for tasks such as rendering graphics, managing colors, and possibly handling user input related to graphics.
+
+#### Purpose
+
+The purpose of integrating OpenGL into this project is to leverage its capabilities for visualizing data, creating interactive user interfaces, or implementing graphical simulations. OpenGL allows for efficient rendering of complex scenes and provides a flexible framework for developing interactive applications with rich graphical interfaces.
+
+#### Dependencies
+
+To use OpenGL in this project, ensure that you have the necessary OpenGL libraries and headers installed on your system. Additionally, depending on your development environment, you may need to configure your build system to link against the OpenGL libraries and include the appropriate headers in your source files.
+
+#### SetUp Instructions
+
+If you're using a package manager, such as apt (for Linux) or Homebrew (for macOS), you can install OpenGL libraries using the respective package manager commands. For example:
+
+```Linux
+```
 
 ## What is Flocking?
 
